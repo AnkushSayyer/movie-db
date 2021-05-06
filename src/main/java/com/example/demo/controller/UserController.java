@@ -35,11 +35,6 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 
-	@PostMapping("/login")
-	public void login(@RequestBody User user) {
-
-	}
-
 	@PostMapping("{userId}/title/{titleId}/rate")
 	@PreAuthorize("hasRole('USER')")
 	public void rate(@PathVariable Long userId, @PathVariable Long titleId, @RequestBody Rate rate) {
