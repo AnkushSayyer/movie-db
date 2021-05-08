@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.demo.auth.ApplicationUserService;
+import com.example.demo.exception.handler.FilterChainExceptionHandler;
 import com.example.demo.jwt.JwtConfig;
 import com.example.demo.jwt.JwtTokenVerifier;
 import com.example.demo.jwt.JwtUsernameAndPasswordAuthenticationFilter;
@@ -26,8 +27,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-//	@Autowired
-//	private FilterChainExceptionHandler filterChainExceptionHandler;
+	@Autowired
+	private FilterChainExceptionHandler filterChainExceptionHandler;
 
 	@Autowired
 	private ApplicationUserService applicationUserService;
@@ -44,8 +45,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
-			.addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class);
-//			.addFilterBefore(filterChainExceptionHandler, JwtTokenVerifier.class);
+			.addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class)
+			.addFilterBefore(filterChainExceptionHandler, JwtTokenVerifier.class);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.exception.NoSeriesException;
 import com.example.demo.model.Material;
 import com.example.demo.service.MaterialService;
 
@@ -38,8 +39,8 @@ public class MovieController {
 			Material savedMaterial = materialService.saveMovie(material);
 			return savedMaterial != null ? savedMaterial.getId().toString() : "failed";
 		}
-		catch(Exception ex) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Add series for episode");
+		catch(NoSeriesException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage(), ex);
 		}
 	}
 
