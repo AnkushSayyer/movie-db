@@ -18,6 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.example.demo.exception.UnauthorizedException;
 import com.google.common.base.Strings;
 
 import io.jsonwebtoken.Claims;
@@ -42,8 +43,8 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 		String authorization = request.getHeader(jwtConfig.getAuthorizationHeader());
 
 		if(Strings.isNullOrEmpty(authorization) || !authorization.startsWith(jwtConfig.getTokenPrefix())) {
-			filterChain.doFilter(request, response);
-			return;
+			throw new UnauthorizedException("Please login");
+//			filterChain.doFilter(request, response);
 		}
 
 		String token = authorization.replace(jwtConfig.getTokenPrefix(), "");

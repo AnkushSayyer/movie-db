@@ -26,6 +26,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+//	@Autowired
+//	private FilterChainExceptionHandler filterChainExceptionHandler;
+
 	@Autowired
 	private ApplicationUserService applicationUserService;
 	@Autowired
@@ -42,6 +45,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
 			.addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class);
+//			.addFilterBefore(filterChainExceptionHandler, JwtTokenVerifier.class);
 	}
 
 	@Override
