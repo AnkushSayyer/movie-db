@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,8 @@ public class UserController {
 	@Autowired
 	private RateService rateService;
 
+	private final org.slf4j.Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	@PostMapping("/signup")
 	public Long signup(@RequestBody User user) {
 		return userService.saveUser(user);
@@ -41,9 +45,11 @@ public class UserController {
 		rateService.rate(userId, titleId, rate);
 	}
 
-	@PreAuthorize("hasRole('USER')")
 	@GetMapping("{userId}/watchlist")
+	@PreAuthorize("hasRole('USER')")
+	@Cacheable(value = "watchlist", key = "#userId")
 	public List<Domain> getWatchList(@PathVariable Long userId){
+		logger.info("fetching watchlist - user/{userId}/watchlist");
 		return userService.getWatchList(userId);
 	}
 

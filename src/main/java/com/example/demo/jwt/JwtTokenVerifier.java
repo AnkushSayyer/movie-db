@@ -44,7 +44,6 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
 		if(Strings.isNullOrEmpty(authorization) || !authorization.startsWith(jwtConfig.getTokenPrefix())) {
 			throw new UnauthorizedException("Please login");
-//			filterChain.doFilter(request, response);
 		}
 
 		String token = authorization.replace(jwtConfig.getTokenPrefix(), "");

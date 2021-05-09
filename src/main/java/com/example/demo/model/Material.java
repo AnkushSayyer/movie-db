@@ -1,11 +1,14 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+@SuppressWarnings("serial")
 @Entity
-public class Material extends Domain {
+public class Material extends Domain implements Serializable {
 	private String language;
 
 	@ManyToOne

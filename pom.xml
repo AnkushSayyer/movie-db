@@ -43,6 +43,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		
 
 		<!-- https://mvnrepository.com/artifact/org.junit/junit5-engine -->
 		<dependency>
@@ -58,6 +65,11 @@
 		    <scope>test</scope>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-api</artifactId>
+		</dependency>
 		
 		<dependency>
 			<groupId>com.google.guava</groupId>
