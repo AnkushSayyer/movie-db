@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.exception.NoSeriesException;
+import com.example.demo.model.DomainType;
 import com.example.demo.model.Material;
 import com.example.demo.service.MaterialService;
 
@@ -28,8 +29,8 @@ public class MovieController {
 	private MaterialService materialService;
 
 	@GetMapping
-	public List<Material> getAllMovies(@RequestParam String language, @RequestParam String sortBy) {
-		return materialService.getAllMovies(language, sortBy);
+	public List<Material> getAllMovies(@RequestParam DomainType type,@RequestParam String language, @RequestParam String sortBy, @RequestParam int page) {
+		return materialService.getAllMovies(type, language, sortBy, page);
 	}
 
 	@PostMapping
